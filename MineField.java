@@ -23,10 +23,8 @@ class MineField {
 	 */
 	MineField() {
 		steppedOnMine = false;
-
 		initiateBooleanTablesWithFalse();
 		initiateMineField();
-		
 	}
 
 	/**
@@ -46,11 +44,13 @@ class MineField {
 			}
 		}
 	}
+
 	/**
 	 * Method randomly places 15 mines on the "mineField".
+	 * 
 	 * @return nothing.
 	 */
-	private void initiateMineField(){
+	private void initiateMineField() {
 		int mineCounter = 15;
 		int randomRow, randomCol;
 		Random RGenerator = new Random();
@@ -67,11 +67,14 @@ class MineField {
 	}
 
 	/**
-	 * Method tries to place a mine in a randomly selected cell within the minefield table, and if there is a mine it returns false and
-	 * if there's no mine it places a mine in that cell and returns true.
+	 * Method tries to place a mine in a randomly selected cell within the
+	 * minefield table, and if there is a mine it returns false and if there's
+	 * no mine it places a mine in that cell and returns true.
 	 * 
-	 * @param randomRow, row to try and place a mine
-	 * @param randomCol, column to try and place a mine
+	 * @param randomRow,
+	 *            row to try and place a mine.
+	 * @param randomCol,
+	 *            column to try and place a mine.
 	 * @return true if has placed a mine, false if not.
 	 */
 	private boolean placeMineWhereNoMineExists(int randomRow, int randomCol) {
@@ -82,9 +85,12 @@ class MineField {
 			return true;
 		}
 	}
+
 	/**
-	 * Method runs through the entire minefield table and shows every cell in the visiblefield where a mine exists. Method also
-	 * alters the "steppedOnMine variable to true" and shows the visibleField table.
+	 * Method runs through the entire minefield table and shows every cell in
+	 * the visiblefield where a mine exists. Method also alters the
+	 * "steppedOnMine variable to true" and shows the visibleField table.
+	 * 
 	 * @return nothing.
 	 */
 	private void displayAllMines() {
@@ -100,11 +106,26 @@ class MineField {
 
 	}
 
+	private int identifyPerifiralMines(int row, int col) {
+		int mineCounter = 0;
+		for (int perifiralRow = row - 1; perifiralRow <= row + 1; perifiralRow++) {
+			for (int perifiralColumn = col - 1; perifiralColumn <= col + 1; perifiralColumn++) {
+				if (minefield[perifiralRow][perifiralColumn]) {
+					mineCounter++;
+				}
+			}
+		}
+		return mineCounter;
+	}
+
+	// intuition that this method generates a number based on how many mines
+	// that are +1 around the cell selected.
 	private char drawChar(int row, int col) {
 		int count = 0;
 		if (visiblefield[row][col]) {
-			if (minefield[row][col])
+			if (minefield[row][col]) {
 				return '*';
+			}
 			for (int irow = row - 1; irow <= row + 1; irow++) {
 				for (int icol = col - 1; icol <= col + 1; icol++) {
 					if (icol >= 0 && icol < colMax && irow >= 0 && irow < rowMax) {
@@ -114,13 +135,7 @@ class MineField {
 				}
 			}
 		} else {
-			if (steppedOnMine) {
-				return '-';
-			}
-			{
-
-				return '?';
-			}
+			return steppedOnMine ? '-' : '?';
 		}
 		switch (count) {
 		case 0:
@@ -156,18 +171,12 @@ class MineField {
 		String[] separated = input.split(" ");
 		int row;
 		int col;
-		try {
-
-			row = Integer.parseInt(separated[0]);
-			col = Integer.parseInt(separated[1]);
-			if (row < 0 || col < 0 || row >= rowMax || col >= colMax) {
-				throw new java.io.IOException();
-			}
-		} catch (Exception e) {
+		row = Integer.parseInt(separated[0]);
+		col = Integer.parseInt(separated[1]);
+		if (row < 0 || col < 0 || row >= rowMax || col >= colMax) {
 			System.out.println("\nInvalid Input!");
 			return false;
 		}
-
 		if (legalMoveValue(row, col)) {
 			return true;
 

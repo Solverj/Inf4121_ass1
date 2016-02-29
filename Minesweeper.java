@@ -1,5 +1,4 @@
 import java.util.Scanner;
-//testing first commits
 public class Minesweeper {
 
 	private static MineField field;
