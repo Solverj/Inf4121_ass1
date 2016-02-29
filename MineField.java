@@ -1,24 +1,26 @@
 import java.util.Random;
 
+/*
+ * Classname MineField
+ * 
+ * Version information
+ *
+ * Date
+ * 
+ * Copyright notice
+ */
+
 class MineField{
 
-	private boolean[][] mines,visible;
+	private boolean[][] minefield,visiblefield;
 	private boolean boom;
 	private final int rowMax = 5;
 	private final int colMax = 10;
 	
-	MineField(){
-		
-		mines=new boolean[rowMax][colMax];
-		visible=new boolean[rowMax][colMax];
+	MineField(){	
 		boom=false;
 		
-		for(int row=0;row<rowMax;row++){
-			for(int col=0;col<colMax;col++){
-				mines[row][col]=false;
-				visible[row][col]=false;
-			}
-		}
+		initiateBooleanTablesWithFalse();
 		
 		int counter2=15;
 		int randomRow,randomCol;
@@ -33,21 +35,42 @@ class MineField{
 				counter2--;
 			}
 		}
-	}	
+	}
+	/**
+	 * Method initiates two-dimensional boolean-matrices's cells to "false".
+	 * @param mineField
+	 * @param visibleField
+	 */
+	private void initiateBooleanTablesWithFalse(){
+		minefield=new boolean[rowMax][colMax];
+		visiblefield=new boolean[rowMax][colMax];
+		for(int row=0;row<rowMax;row++){
+			for(int col=0;col<colMax;col++){
+				minefield[row][col]=false;
+				visiblefield[row][col]=false;
+			}
+		}
+	}
+	/**
+	 * Method
+	 * @param randomRow
+	 * @param randomCol
+	 * @return
+	 */
 	private boolean trymove(int randomRow, int randomCol) {
-		if(mines[randomRow][randomCol]){
+		if(minefield[randomRow][randomCol]){
 			return false;
 		}
 		else{
-			mines[randomRow][randomCol]=true;
+			minefield[randomRow][randomCol]=true;
 			return true;
 		}
 	}
 	private void boom() {
 		for(int row=0;row<rowMax;row++){
 			for(int col=0;col<colMax;col++){
-				if(mines[row][col]){
-					visible[row][col]=true;
+				if(minefield[row][col]){
+					visiblefield[row][col]=true;
 				}
 			}
 		}
@@ -60,12 +83,12 @@ class MineField{
 
 	private char drawChar(int row, int col) {
 		int count=0;
-		if(visible[row][col]){
-			if(mines[row][col]) return '*';
+		if(visiblefield[row][col]){
+			if(minefield[row][col]) return '*';
 			for(int irow=row-1;irow<=row+1;irow++){
 				for(int icol=col-1;icol<=col+1;icol++){
 					if(icol>=0&&icol<colMax&&irow>=0&&irow<rowMax){
-						if(mines[irow][icol]) count++;
+						if(minefield[irow][icol]) count++;
 					}
 				}
 			}
@@ -132,15 +155,15 @@ class MineField{
 
 	private boolean legalMoveValue(int row, int col) {
 		
-		if(visible[row][col]){
+		if(visiblefield[row][col]){
 			System.out.println("You stepped in allready revealed area!");
 			return false;
 		}
 		else{
-			visible[row][col]=true;
+			visiblefield[row][col]=true;
 		}
 		
-		if(mines[row][col]){
+		if(minefield[row][col]){
 			boom();
 			return false;
 		}
