@@ -17,7 +17,7 @@ public class Minesweeper {
 		int result = 0;
 		while (true) {
 
-			field.show();
+			field.displayCurrentState();
 			System.out.print("\nPlease enter your move(row col): ");
 			Scanner in = new Scanner(System.in);
 			String input = in.nextLine();
