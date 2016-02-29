@@ -1,5 +1,5 @@
 import java.util.Scanner;
-//ss
+//s
 public class Ranking{
 
 	private final int MAX_PEOPLE_LIMIT=5;
