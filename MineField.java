@@ -122,9 +122,7 @@ class MineField {
 		return (mineCounter <= 8 && mineCounter >= 0) ? Character.forDigit(mineCounter, 10) : 'X';
 	}
 
-	public boolean getBoom() {
-		return steppedOnMine;
-	}
+
 	private boolean isInputWithoutBounds(int row, int col){
 		return (row < 0 || col < 0 || row >= rowMax || col >= colMax);
 	}
@@ -144,6 +142,9 @@ class MineField {
 		} else {
 			return false;
 		}
+	}
+	public boolean getSteppedOnMine() {
+		return steppedOnMine;
 	}
 
 	private boolean legalMoveValue(int row, int col) {

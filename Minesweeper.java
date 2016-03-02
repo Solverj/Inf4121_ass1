@@ -61,7 +61,7 @@ public class Minesweeper {
 //				}
 //				continue;
 //			}
-			else if (field.getBoom()) {
+			else if (field.getSteppedOnMine()) {
 				System.out.println("\nBooooooooooooooooooooooooooooom!You stepped on a mine!You survived " + result + " turns");
 				rank.recordName(result);
 				return true;
