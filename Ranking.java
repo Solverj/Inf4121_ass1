@@ -1,5 +1,10 @@
 import java.util.Scanner;
-
+/**
+ * The Ranking class has responsibility of containing the top 5 players of this mine sweeper session - and for displaying result to the player.
+ * @author unknown
+ * @version 1.1
+ * @since 2016-02-29
+ */
 public class Ranking {
 
 	private final int MAX_PEOPLE_LIMIT = 5;
@@ -22,7 +27,11 @@ public class Ranking {
 	private boolean resultLowerThenLowestScore(int result) {
 		return highScoreList[MAX_PEOPLE_LIMIT - 1] > result;
 	}
-
+/**
+ * Method takes in a name, checks if highscore is full and result is higher then lowest score, if so puts player in list.
+ * else just puts in list, then method sorts the score from lowest to highest and displays it for the player.
+ * @return nothing.
+ */
 	public void recordName(int result) {
 		System.out.print("\n Please enter your name -");
 		in = new Scanner(System.in);
@@ -41,7 +50,7 @@ public class Ranking {
 			ammountOfPeopleInHighScoreList++;
 		}
 
-		bubbleSortHighScoreAscendingOrder();
+		bubbleSortHighScoreDescendingOrder();
 		displayHighScore();
 	}
 
@@ -56,7 +65,7 @@ public class Ranking {
 		}
 	}
 
-	private void bubbleSortHighScoreAscendingOrder() {
+	private void bubbleSortHighScoreDescendingOrder() {
 		if (ammountOfPeopleInHighScoreList < 2) {
 			return;
 		}
@@ -65,12 +74,12 @@ public class Ranking {
 			unsorted = false;
 			for (int i = 0; i < (ammountOfPeopleInHighScoreList - 1); i++) {
 				if (highScoreList[i + 1] > highScoreList[i]) {
-					int swapR = highScoreList[i];
+					int lowerRank = highScoreList[i];
 					highScoreList[i] = highScoreList[i + 1];
-					highScoreList[i + 1] = swapR;
-					String swapN = nameAccordingToScoreList[i];
+					highScoreList[i + 1] = lowerRank;
+					String nameOfLowerRank = nameAccordingToScoreList[i];
 					nameAccordingToScoreList[i] = nameAccordingToScoreList[i + 1];
-					nameAccordingToScoreList[i + 1] = swapN;
+					nameAccordingToScoreList[i + 1] = nameOfLowerRank;
 					unsorted = true;
 				}//if
 			}//for
