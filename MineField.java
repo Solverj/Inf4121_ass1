@@ -68,12 +68,9 @@ class MineField {
 	 *            column to try and place a mine.
 	 */
 	private boolean placeMineWhereNoMineExists(int randomRow, int randomCol) {
-		if (minefield[randomRow][randomCol]) {
-			return false;
-		} else {
-			minefield[randomRow][randomCol] = true;
-			return true;
-		}
+		if(minefield[randomRow][randomCol]) return false;
+		minefield[randomRow][randomCol] = true;
+		return true;
 	}
 
 	/**
