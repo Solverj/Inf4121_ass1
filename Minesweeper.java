@@ -1,31 +1,41 @@
 import java.util.Scanner;
+
+/**
+ * The Minesweeper class has responsibility of running the game, asking for
+ * player for a move while checking move against minefield for rules. And when a
+ * game is done it will use the ranking class inorder to put the player in it or
+ * not.
+ * 
+ * @author unknown
+ * @version 1.1
+ * @since 2016-02-29
+ */
 public class Minesweeper {
 
 	private static MineField field;
-	private static Ranking rank;	
+	private static Ranking rank;
+	private static Scanner in;
+
 	public static void main(String[] args) {
-		rank=new Ranking();
-		mainMessage()
-		
-		;
-		while(gameCountinue());
+		rank = new Ranking();
+		mainMessage();
+		while (loopGameUntilExit());
 		System.out.println("\nThank you for playing :) Have a nice day!");
-	}	
-	private static boolean gameCountinue() {
+	}
+
+	private static boolean loopGameUntilExit() {
 		field = new MineField();
 		int result = 0;
 		while (true) {
 
 			field.displayCurrentState();
 			System.out.print("\nPlease enter your move(row col): ");
-			Scanner in = new Scanner(System.in);
+			in = new Scanner(System.in);
 			String input = in.nextLine();
 
 			if (input.equals("top")) {
 				rank.displayHighScore();
 				continue;
-
-
 			}
 			if (input.equals("restart")) {
 				rank.recordName(result);
@@ -39,41 +49,21 @@ public class Minesweeper {
 				result++;
 				if (result == 35) {
 					System.out.println("Congratulations you WON the game!");
-					{
-						rank.recordName(result);
-						{
-							return true;
-						}
-					}
+					rank.recordName(result);
+					return true;
 				}
-				continue;
-			}
-//			if(input.equals("exit")){
-//				rank.recordName(result);
-//				return false;
-//			}
-//			if(field.legalMoveString(input)){
-//				result++;
-//				if(result==35){
-//					System.out.println("Congratulations you WON the game!");
-//					rank.recordName(result);
-//					return true;
-//				}
-//				continue;
-//			}
-			else if (field.getSteppedOnMine()) {
-				System.out.println("\nBooooooooooooooooooooooooooooom!You stepped on a mine!You survived " + result + " turns");
+			} else if (field.getSteppedOnMine()) {
+				System.out.println(
+						"\nBooooooooooooooooooooooooooooom!You stepped on a mine!You survived " + result + " turns");
 				rank.recordName(result);
 				return true;
 			}
 
 		}
 
+	}
 
-		}
-
-	
-	private static void mainMessage(){
+	private static void mainMessage() {
 		System.out.println("Welcome to Minesweeper!");
 		System.out.println("To play just input some coordinates and try not to step ont mine :)");
 		System.out.println("Usefull commands:");
