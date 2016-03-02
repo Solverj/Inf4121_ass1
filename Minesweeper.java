@@ -22,7 +22,7 @@ public class Minesweeper {
 			String input = in.nextLine();
 
 			if (input.equals("top")) {
-				rank.show();
+				rank.displayHighScore();
 				continue;
 
 
