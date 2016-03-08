@@ -17,50 +17,54 @@ public class Minesweeper {
 	private static Scanner in;
 
 	public static void main(String[] args) {
+		initiateGame();
+	}
+	private static void initiateGame(){
 		rank = new Ranking();
 		mainMessage();
-		while (loopGameUntilExit());
-		System.out.println("\nThank you for playing :) Have a nice day!");
+		loopGameUntilExit();
 	}
 
-	private static boolean loopGameUntilExit() {
+	private static void loopGameUntilExit() {
+		boolean exit = false;
+		String input;
 		field = new MineField();
-		int result = 0;
-		while (true) {
-
+		int result = 0;		
+		while (!exit) {
 			field.displayCurrentState();
 			System.out.print("\nPlease enter your move(row col): ");
 			in = new Scanner(System.in);
-			String input = in.nextLine();
+			input = in.nextLine();
 
 			if (input.equals("top")) {
 				rank.displayHighScore();
-				continue;
 			}
 			if (input.equals("restart")) {
-				rank.recordName(result);
-				return true;
+				field = restart(result);
 			}
 			if (input.equals("exit")) {
 				rank.recordName(result);
-				return false;
+				System.out.println("\nThank you for playing :) Have a nice day!");
+				exit = true;
 			}
 			if (field.legalMoveString(input)) {
 				result++;
 				if (result == 35) {
 					System.out.println("Congratulations you WON the game!");
-					rank.recordName(result);
-					return true;
+					field = restart(result);
 				}
 			} else if (field.getSteppedOnMine()) {
 				System.out.println(
 						"\nBooooooooooooooooooooooooooooom!You stepped on a mine!You survived " + result + " turns");
-				rank.recordName(result);
-				return true;
+				field = restart(result);
 			}
 
 		}
 
+	}
+	private static MineField restart(int result){
+		rank.recordName(result);
+		return new MineField();
 	}
 
 	private static void mainMessage() {
