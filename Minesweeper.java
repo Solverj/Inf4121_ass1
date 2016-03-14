@@ -53,11 +53,11 @@ public class Minesweeper {
 				break;
 			case "exit":
 				ranking.recordScore(turns);
-				return true;
+				return false;
 			default:
 				return handleProbeCmd(input);
 		}
-		return false;
+		return true;
 	}
 
 	private int[] parsePosition(String s) {
@@ -76,25 +76,25 @@ public class Minesweeper {
 		int[] pos = parsePosition(s);
 		if(pos == null) {
 			System.out.println("Invalid input -- ignoring.");
-			return false;
+			return true;
 		}
 		final int row = pos[0], col = pos[1];
 		if(!field.validPosition(row, col)) {
 			System.out.println("Not probing -- specified row or column out of range.");
-			return false;
+			return true;
 		}
 		if(field.isProbed(row, col)) {
 			System.out.println("Ignoring -- already probed, you won't see anything new there.");
-			return false;
+			return true;
 		}
 		field.probe(row, col);
 		printMineField(field);
 		if(field.isMined(row, col)) {
 			System.out.println("Your probing has tripped a mine. Game over, man. You survived " + turns + " turns.");
-			return true;
+			return false;
 		}
 		turns++;
-		return false;
+		return true;
 	}
 
 	public void printMineField(MineField field) {
