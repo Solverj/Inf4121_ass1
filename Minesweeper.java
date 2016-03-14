@@ -39,15 +39,15 @@ public class Minesweeper {
 			if (input.equals("top")) {
 				rank.displayHighScore();
 			}
-			if (input.equals("restart")) {
+			else if (input.equals("restart")) {
 				field = restart(result);
 			}
-			if (input.equals("exit")) {
+			else if (input.equals("exit")) {
 				rank.recordName(result);
 				System.out.println("\nThank you for playing :) Have a nice day!");
 				exit = true;
 			}
-			if (field.legalMoveString(input)) {
+			else if (field.legalMoveString(input)) {
 				result++;
 				if (result == 35) {
 					System.out.println("Congratulations you WON the game!");
